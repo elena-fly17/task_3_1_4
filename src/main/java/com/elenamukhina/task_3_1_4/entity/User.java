@@ -34,7 +34,7 @@ public class User implements UserDetails {
     private String password;
 
     @JsonIgnoreProperties("users")
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -171,5 +171,9 @@ public class User implements UserDetails {
                 ", password='" + password + '\'' +
                 ", roles=" + roles +
                 '}';
+    }
+
+    public void printUser() {
+        System.out.println(username);
     }
 }

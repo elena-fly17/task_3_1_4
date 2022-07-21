@@ -26,7 +26,7 @@ public class UserServiceImpl {
 
     // добавление нового юзера
     public void saveUser(User user) {
-        Optional<User> timeUser = Optional.ofNullable(getUser(user.getId()));
+        /*Optional<User> timeUser = Optional.ofNullable(getUser(user.getId()));
         if (timeUser.isEmpty()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setUsername(user.getEmail());
@@ -34,6 +34,26 @@ public class UserServiceImpl {
         } else {
             user.setUsername(user.getEmail());
             User user1 = timeUser.get();
+            String passwordForm = user.getPassword();
+            String passwordBD = user1.getPassword();
+            if (passwordForm.equals(passwordBD)) {
+                userServiceCrudRepository.save(user);
+                user.setPassword(passwordBD);
+            } else {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+                userServiceCrudRepository.save(user);
+            }
+        }*/
+
+        // Optional<User> timeUser = Optional.ofNullable(getUser(user.getId()));
+        User tUser = getUser(user.getId());
+        if (tUser == null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setUsername(user.getEmail());
+            userServiceCrudRepository.save(user);
+        } else {
+            user.setUsername(user.getEmail());
+            User user1 = tUser;
             String passwordForm = user.getPassword();
             String passwordBD = user1.getPassword();
             if (passwordForm.equals(passwordBD)) {
@@ -55,6 +75,10 @@ public class UserServiceImpl {
             return null;
         }
     }
+    /*public User getUser(int id) {
+        Optional<User> user = userServiceCrudRepository.findById(id);
+        return user.get();
+    }*/
 
     // удаление юзера по id
     public void deleteUser(int id) {

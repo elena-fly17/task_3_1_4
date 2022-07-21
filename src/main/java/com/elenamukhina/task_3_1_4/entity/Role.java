@@ -19,9 +19,9 @@ public class Role implements GrantedAuthority {
     private Integer id;
     private String name;
 
-    @JsonIgnoreProperties("roles")
+    /*@JsonIgnoreProperties("roles")
     @ManyToMany(mappedBy = "roles")
-    private Collection<User> users;
+    private Collection<User> users;*/
 
     public Role() {
     }
@@ -47,13 +47,13 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-    public Collection<User> getUsers() {
+    /*public Collection<User> getUsers() {
         return users;
     }
 
     public void setUsers(Collection<User> users) {
         this.users = users;
-    }
+    }*/
 
     @Override
     public String getAuthority() {
